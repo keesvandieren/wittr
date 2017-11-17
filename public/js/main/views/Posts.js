@@ -6,9 +6,9 @@ import humanReadableTimeDiff from './../../utils/humanReadableTimeDiff';
 const maxMessages = 30;
 
 export default function Posts(container) {
-  var posts = this;
+    const posts = this;
 
-  this._container = container;
+    this._container = container;
   this._scroller = container.querySelector('.posts');
   this._lastTimeUpdate = 0;
   this._newPostAlert = container.querySelector('.posts-alert');
@@ -43,10 +43,10 @@ Posts.prototype._softTimesUpdate = function() {
 
 // update all the <time> elements
 Posts.prototype._timesUpdate = function() {
-  var postTimeEls = toArray(this._container.querySelectorAll('.post-time'));
-  postTimeEls.forEach(function(timeEl) {
-    var postDate = new Date(timeEl.getAttribute('datetime'));
-    timeEl.textContent = humanReadableTimeDiff(postDate);
+    const postTimeEls = toArray(this._container.querySelectorAll('.post-time'));
+    postTimeEls.forEach(function(timeEl) {
+      const postDate = new Date(timeEl.getAttribute('datetime'));
+      timeEl.textContent = humanReadableTimeDiff(postDate);
   });
   this._lastTimeUpdate = Date.now();
 };
@@ -62,27 +62,27 @@ Posts.prototype._onScroll = function() {
 // creates html for them, and adds them to the page
 Posts.prototype.addPosts = function(messages) {
   // create html for new posts
-  var oldLatestPost = this._scroller.querySelector('.post');
-  var oldLatestPostOldPosition = oldLatestPost && oldLatestPost.getBoundingClientRect();
-  var htmlString = messages.map(function(message) {
-    return postTemplate(message);
-  }).join('');
+    const oldLatestPost = this._scroller.querySelector('.post');
+    const oldLatestPostOldPosition = oldLatestPost && oldLatestPost.getBoundingClientRect();
+    const htmlString = messages.map(function (message) {
+        return postTemplate(message);
+    }).join('');
 
-  // add to the dom
-  var nodes = parseHTML(htmlString);
-  this._scroller.insertBefore(nodes, this._scroller.firstChild);
+    // add to the dom
+    const nodes = parseHTML(htmlString);
+    this._scroller.insertBefore(nodes, this._scroller.firstChild);
   
   // remove really old posts to avoid too much content
-  var posts = toArray(this._scroller.querySelectorAll('.post'));
+    const posts = toArray(this._scroller.querySelectorAll('.post'));
 
-  posts.slice(maxMessages).forEach(function(post) {
+    posts.slice(maxMessages).forEach(function(post) {
     post.parentNode.removeChild(post);
   });
 
   // move scrolling position to make it look like nothing happened
   if (oldLatestPost) {
-    var oldLatestPostNewPosition = oldLatestPost.getBoundingClientRect();
-    this._scroller.scrollTop = this._scroller.scrollTop + (Math.round(oldLatestPostNewPosition.top) - Math.round(oldLatestPostOldPosition.top));
+      const oldLatestPostNewPosition = oldLatestPost.getBoundingClientRect();
+      this._scroller.scrollTop = this._scroller.scrollTop + (Math.round(oldLatestPostNewPosition.top) - Math.round(oldLatestPostOldPosition.top));
     this._newPostAlert.classList.add('active');
   }
 
@@ -91,8 +91,8 @@ Posts.prototype.addPosts = function(messages) {
 
 // get the date of the latest post, or null if there are no posts
 Posts.prototype.getLatestPostDate = function(messages) {
-  var timeEl = this._container.querySelector('.post-time');
-  if (!timeEl) return null;
+    let timeEl = this._container.querySelector('.post-time');
+    if (!timeEl) return null;
   return new Date(timeEl.getAttribute('datetime'));
 };
 

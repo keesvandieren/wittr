@@ -1,18 +1,18 @@
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
-var runSequence = require('run-sequence');
-var del = require('del');
-var assign = require('lodash/object/assign');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var babelify = require('babelify');
-var hbsfy = require('hbsfy');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var mergeStream = require('merge-stream');
-var through = require('through2');
+const gulp = require('gulp');
+const plugins = require('gulp-load-plugins')();
+const runSequence = require('run-sequence');
+const del = require('del');
+const assign = require('lodash/object/assign');
+const browserify = require('browserify');
+const watchify = require('watchify');
+const babelify = require('babelify');
+const hbsfy = require('hbsfy');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const mergeStream = require('merge-stream');
+const through = require('through2');
 
-var args = process.argv.slice(3);
+const args = process.argv.slice(3);
 
 gulp.task('clean', function (done) {
   del(['build'], done);
@@ -41,14 +41,14 @@ function createBundle(src) {
     src = [src];
   }
 
-  var customOpts = {
-    entries: src,
-    debug: true
-  };
-  var opts = assign({}, watchify.args, customOpts);
-  var b = watchify(browserify(opts));
+    const customOpts = {
+        entries: src,
+        debug: true
+    };
+    const opts = assign({}, watchify.args, customOpts);
+    const b = watchify(browserify(opts));
 
-  b.transform(babelify.configure({
+    b.transform(babelify.configure({
     stage: 1
   }));
 
@@ -58,11 +58,11 @@ function createBundle(src) {
 }
 
 function bundle(b, outputPath) {
-  var splitPath = outputPath.split('/');
-  var outputFile = splitPath[splitPath.length - 1];
-  var outputDir = splitPath.slice(0, -1).join('/');
+    const splitPath = outputPath.split('/');
+    const outputFile = splitPath[splitPath.length - 1];
+    const outputDir = splitPath.slice(0, -1).join('/');
 
-  return b.bundle()
+    return b.bundle()
     // log errors if they happen
     .on('error', plugins.util.log.bind(plugins.util, 'Browserify Error'))
     .pipe(source(outputFile))
@@ -75,14 +75,14 @@ function bundle(b, outputPath) {
     .pipe(gulp.dest('build/public/' + outputDir));
 }
 
-var jsBundles = {
-  'js/polyfills/promise.js': createBundle('./public/js/polyfills/promise.js'),
-  'js/polyfills/url.js': createBundle('./public/js/polyfills/url.js'),
-  'js/settings.js': createBundle('./public/js/settings/index.js'),
-  'js/main.js': createBundle('./public/js/main/index.js'),
-  'js/remote-executor.js': createBundle('./public/js/remote-executor/index.js'),
-  'js/idb-test.js': createBundle('./public/js/idb-test/index.js'),
-  'sw.js': createBundle(['./public/js/sw/index.js', './public/js/sw/preroll/index.js'])
+const jsBundles = {
+    'js/polyfills/promise.js': createBundle('./public/js/polyfills/promise.js'),
+    'js/polyfills/url.js': createBundle('./public/js/polyfills/url.js'),
+    'js/settings.js': createBundle('./public/js/settings/index.js'),
+    'js/main.js': createBundle('./public/js/main/index.js'),
+    'js/remote-executor.js': createBundle('./public/js/remote-executor/index.js'),
+    'js/idb-test.js': createBundle('./public/js/idb-test/index.js'),
+    'sw.js': createBundle(['./public/js/sw/index.js', './public/js/sw/preroll/index.js'])
 };
 
 gulp.task('js:browser', function () {
@@ -125,8 +125,8 @@ gulp.task('watch', function () {
   gulp.watch(['public/imgs/**/*', 'public/avatars/**/*', 'server/*.txt', 'public/*.json'], ['copy']);
 
   Object.keys(jsBundles).forEach(function(key) {
-    var b = jsBundles[key];
-    b.on('update', function() {
+      const b = jsBundles[key];
+      b.on('update', function() {
       return bundle(b, key);
     });
   });

@@ -1,6 +1,6 @@
 export default function humanReadableTimeDiff(date) {
-  var dateDiff = Date.now() - date;
-  if (dateDiff <= 0 || Math.floor(dateDiff / 1000) == 0) {
+    const dateDiff = Date.now() - date;
+    if (dateDiff <= 0 || Math.floor(dateDiff / 1000) == 0) {
     return 'now';
   }
   if (dateDiff < 1000 * 60) {

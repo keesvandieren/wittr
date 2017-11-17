@@ -31,6 +31,6 @@ function hasBody(req) {
 }
 
 function mime(req) {
-  var str = req.headers['content-type'] || '';
-  return str.split(';')[0];
+    const str = req.headers['content-type'] || '';
+    return str.split(';')[0];
 }

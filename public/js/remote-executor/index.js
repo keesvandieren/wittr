@@ -1,10 +1,10 @@
 import idb from 'idb';
 
 function openDb(name) {
-  var maxVersion = 100;
-  var version = 1;
+    const maxVersion = 100;
+    let version = 1;
 
-  return Promise.resolve().then(function tryOpen() {
+    return Promise.resolve().then(function tryOpen() {
     return idb.open(name, version, upgradeDb => {
       upgradeDb.transaction.abort();
     }).catch(err => {

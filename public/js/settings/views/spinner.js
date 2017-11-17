@@ -23,13 +23,13 @@ export default class Spinner {
     this._showTimeout = null;
     this.container.style.display = 'none';
 
-    var animEndListener = event => {
-      if (event.target == this.container) {
-        this.container.style.display = 'none';
-      }
-    };
+      const animEndListener = event => {
+          if (event.target == this.container) {
+              this.container.style.display = 'none';
+          }
+      };
 
-    this.container.addEventListener('webkitAnimationEnd', animEndListener);
+      this.container.addEventListener('webkitAnimationEnd', animEndListener);
     this.container.addEventListener('animationend', animEndListener);
   }
 

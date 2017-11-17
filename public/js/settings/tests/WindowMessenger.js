@@ -43,9 +43,9 @@ export default class WindowMessenger {
       return;
     }
 
-    var resolver = this._pending[event.data.id];
+      let resolver = this._pending[event.data.id];
 
-    if (!resolver) {
+      if (!resolver) {
       console.log("No resolver for", event);
       return;
     }

@@ -1,12 +1,12 @@
 export default function loadScripts(urls, yeyCallback, neyCallback) {
-  var count = urls.length;
-  var errored = false;
+    let count = urls.length;
+    let errored = false;
 
-  if (urls.length == 0) return yeyCallback();
+    if (urls.length == 0) return yeyCallback();
 
   urls.forEach(function(url) {
-    var script = document.createElement('script');
-    script.onload = function() {
+      const script = document.createElement('script');
+      script.onload = function() {
       if (errored) return;
       if (!--count) yeyCallback();
     };

@@ -5,9 +5,9 @@ import transition from 'simple-transition';
 import closest from 'closest';
 
 function Toast(text, duration, buttons) {
-  var toast = this;
+    const toast = this;
 
-  this.container = parseHTML(toastTemplate({
+    this.container = parseHTML(toastTemplate({
     text: text,
     buttons: buttons
   })).firstChild;
@@ -27,8 +27,8 @@ function Toast(text, duration, buttons) {
   }
 
   this.container.addEventListener('click', function(event) {
-    var button = closest(event.target, 'button', true);
-    if (!button) return;
+      let button = closest(event.target, 'button', true);
+      if (!button) return;
     toast._answerResolver(button.textContent);
     toast.hide();
   });
@@ -61,8 +61,8 @@ Toasts.prototype.show = function(message, opts) {
     buttons: ['dismiss']
   });
 
-  var toast = new Toast(message, opts.duration, opts.buttons);
-  this._container.appendChild(toast.container);
+    const toast = new Toast(message, opts.duration, opts.buttons);
+    this._container.appendChild(toast.container);
 
   transition(toast.container, {
     opacity: 1

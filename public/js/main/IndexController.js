@@ -12,12 +12,12 @@ export default function IndexController(container) {
 
 // open a connection to the server for live updates
 IndexController.prototype._openSocket = function() {
-  var indexController = this;
-  var latestPostDate = this._postsView.getLatestPostDate();
+    const indexController = this;
+    const latestPostDate = this._postsView.getLatestPostDate();
 
-  // create a url pointing to /updates with the ws protocol
-  var socketUrl = new URL('/updates', window.location);
-  socketUrl.protocol = 'ws';
+    // create a url pointing to /updates with the ws protocol
+    const socketUrl = new URL('/updates', window.location);
+    socketUrl.protocol = 'ws';
 
   if (latestPostDate) {
     socketUrl.search = 'since=' + latestPostDate.valueOf();
@@ -27,9 +27,9 @@ IndexController.prototype._openSocket = function() {
   // it isn't needed for Wittr
   socketUrl.search += '&' + location.search.slice(1);
 
-  var ws = new WebSocket(socketUrl.href);
+    const ws = new WebSocket(socketUrl.href);
 
-  // add listeners
+    // add listeners
   ws.addEventListener('open', function() {
     if (indexController._lostConnectionToast) {
       indexController._lostConnectionToast.hide();
@@ -57,6 +57,6 @@ IndexController.prototype._openSocket = function() {
 
 // called when the web socket sends message data
 IndexController.prototype._onSocketMessage = function(data) {
-  var messages = JSON.parse(data);
-  this._postsView.addPosts(messages);
+    const messages = JSON.parse(data);
+    this._postsView.addPosts(messages);
 };

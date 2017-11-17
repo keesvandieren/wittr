@@ -68,8 +68,8 @@ MaterialTextfield.prototype.CssClasses_ = {
  * @private
  */
 MaterialTextfield.prototype.onKeyDown_ = function(event) {
-  var currentRowCount = event.target.value.split('\n').length;
-  if (event.keyCode === 13) {
+    const currentRowCount = event.target.value.split('\n').length;
+    if (event.keyCode === 13) {
     if (currentRowCount >= this.maxRows) {
       event.preventDefault();
     }
